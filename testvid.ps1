@@ -20,7 +20,7 @@ Add-Type -AssemblyName System.ComponentModel
 "@
 
 # Movie Path
-$VideoSource = "NiceComputer.mp4"
+$VideoSource = Join-Path -Path $PWD.Path -ChildPath "NiceComputer.mp4"
 
 # Devide All Objects on XAML
 $XAMLReader=(New-Object System.Xml.XmlNodeReader $XAML)
