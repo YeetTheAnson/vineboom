@@ -1,8 +1,8 @@
 $WshShell = New-Object -ComObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$PSScriptRoot\funny.bat - Shortcut.lnk")
-$Shortcut.TargetPath = "$PSScriptRoot\funny.bat"
+$Shortcut = $WshShell.CreateShortcut("$PSScriptRoot\SamsungPlayer - Shortcut.lnk")
+$Shortcut.TargetPath = "$PSScriptRoot\SamsungPlayer.bat"
 $Shortcut.Arguments = ""
-$Shortcut.Description = "Shortcut to funny.bat"
+$Shortcut.Description = "Shortcut to SamsungPlayer.bat"
 $Shortcut.WorkingDirectory = $PSScriptRoot
 $Shortcut.Hotkey = "Ctrl+Alt+T"
 $Shortcut.WindowStyle = 7
