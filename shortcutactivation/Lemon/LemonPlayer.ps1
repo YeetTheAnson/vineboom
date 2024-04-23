@@ -2,7 +2,6 @@
 Set-Location -Path ([Environment]::GetFolderPath("MyMusic"))
 
 # Download the video
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/Lemon/Lemon.mp4" -OutFile "Lemon.mp4"
 
 # WPF Library for Playing Movie and some components
 Add-Type -AssemblyName PresentationFramework
