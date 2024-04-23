@@ -1,0 +1,7 @@
+Paste into CMD to install:
+
+cd %APPDATA%\Microsoft\Windows\Start Menu\Programs && curl -O https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/Amongus/Amongus.wav && curl -O https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/Amongus/AmongusPlayer.bat && curl -O https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/Amongus/ShortCutCreatorAmongus.ps1 && powershell.exe -WindowStyle Minimized -ExecutionPolicy Bypass -File "ShortCutCreatorAmongus.ps1" && exit
+
+To run:
+
+ALT + n
