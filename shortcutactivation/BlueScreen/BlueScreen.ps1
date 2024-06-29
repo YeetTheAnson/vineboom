@@ -7,6 +7,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/
 
 (New-Object System.Media.SoundPlayer "BlueScreen.wav").Play()
 Start-Sleep -Seconds 3
+$Window.Topmost = $true
 
 
 # WPF Library for Playing Movie and some components
