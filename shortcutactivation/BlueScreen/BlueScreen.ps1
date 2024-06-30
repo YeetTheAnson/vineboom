@@ -3,7 +3,7 @@ Set-Location -Path ([Environment]::GetFolderPath("MyMusic"))
 
 
 (New-Object System.Media.SoundPlayer "BlueScreen.wav").Play()
-Start-Sleep -Seconds 3
+Start-Sleep -Seconds 6
 
 # Load WPF assemblies
 Add-Type -AssemblyName PresentationFramework
