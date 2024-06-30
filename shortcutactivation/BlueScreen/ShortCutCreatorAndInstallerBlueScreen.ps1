@@ -5,7 +5,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BlueScreen.wav" -OutFile "BlueScreen.wav"
 
 $WshShell = New-Object -ComObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$PSScriptRoot\BlueScreen - Shortcut.lnk")
+$Shortcut = $WshShell.CreateShortcut("$env:APPDATA\Microsoft\Windows\Start Menu\Programs\BlueScreen - Shortcut.lnk")
 $Shortcut.TargetPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\BlueScreen.bat"
 $Shortcut.Arguments = ""
 $Shortcut.Description = "Shortcut to BlueScreen.bat"
