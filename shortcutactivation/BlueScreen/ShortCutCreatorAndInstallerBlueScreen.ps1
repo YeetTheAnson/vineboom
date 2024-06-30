@@ -6,10 +6,10 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/
 
 $WshShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$PSScriptRoot\BlueScreen - Shortcut.lnk")
-$Shortcut.TargetPath = "$PSScriptRoot\BlueScreen.bat"
+$Shortcut.TargetPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\BlueScreen.bat"
 $Shortcut.Arguments = ""
 $Shortcut.Description = "Shortcut to BlueScreen.bat"
-$Shortcut.WorkingDirectory = $PSScriptRoot
+$Shortcut.WorkingDirectory = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs"
 $Shortcut.Hotkey = "Alt+S"
 $Shortcut.WindowStyle = 7
 $Shortcut.Save()
