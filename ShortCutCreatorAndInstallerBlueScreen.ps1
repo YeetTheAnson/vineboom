@@ -1,6 +1,4 @@
 Set-Location -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs"
-
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BSOD.ps1" -OutFile "BSOD.ps1"
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BlueScreen.bat" -OutFile "BlueScreen.bat"
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BlueScreen.mp4" -OutFile "BlueScreen.mp4"
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BlueScreen.ps1" -OutFile "BlueScreen.ps1"
