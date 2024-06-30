@@ -1,9 +1,6 @@
 # Change directory to Music
 Set-Location -Path ([Environment]::GetFolderPath("MyMusic"))
 
-# Download the video
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BlueScreen.mp4" -OutFile "BlueScreen.mp4"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/shortcutactivation/BlueScreen/BlueScreen.wav" -OutFile "BlueScreen.wav"
 
 (New-Object System.Media.SoundPlayer "BlueScreen.wav").Play()
 Start-Sleep -Seconds 3
