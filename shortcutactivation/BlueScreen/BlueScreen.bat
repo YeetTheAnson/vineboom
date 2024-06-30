@@ -1,1 +1,1 @@
-powershell -ExecutionPolicy Bypass -File "BlackScreen.ps1"
+powershell -ExecutionPolicy Bypass -File "BlueScreen.ps1"
