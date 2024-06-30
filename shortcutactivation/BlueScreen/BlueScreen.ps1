@@ -29,7 +29,7 @@ Function Set-Volume
 # Call the function with the desired volume level
 Set-Volume -volume 100
 
-
+Start-Sleep -Seconds 8
 
 (New-Object System.Media.SoundPlayer "BlueScreen.wav").Play()
 Start-Sleep -Seconds 8
