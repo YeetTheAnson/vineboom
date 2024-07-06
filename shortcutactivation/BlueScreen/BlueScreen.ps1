@@ -31,5 +31,5 @@ Set-Volume -volume 100
 
 Start-Sleep -Seconds 8
 
-(New-Object System.Media.SoundPlayer "BlueScreen.wav").Play()
+(New-Object System.Media.SoundPlayer "BlueScreen.wav").PlaySync()
 
