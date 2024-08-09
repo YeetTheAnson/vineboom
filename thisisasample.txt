@@ -1,0 +1,6 @@
+
+"The quick brown fox jumped over the lazy dog"
+"This is a sample sentence"
+"There are plenty of sentence to pick from"
+"This is just a sample"
+
