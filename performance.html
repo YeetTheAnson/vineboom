@@ -140,7 +140,7 @@
     // Update performance data
     async function updatePerformanceData() {
         // Fetch real performance data from the Flask API
-        const response = await fetch('http://35.206.76.179:5000/api/performance');
+        const response = await fetch('https://35.206.76.179:5000/api/performance');
         const data = await response.json();
 
         // Update DOM elements with real data
