@@ -28,6 +28,7 @@
             align-items: center;
             flex-direction: column;
             min-height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
         }
 
         .start-screen {
@@ -165,6 +166,18 @@
         #text2 {
             left: 80px; /* Position text for slider 2 relative to handle */
         }
+
+        /* Video styles */
+        #video {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire screen */
+            z-index: 10; /* Make sure it's above everything else */
+        }
     </style>
 </head>
 <body>
@@ -211,11 +224,17 @@
     <audio id="background-audio" loop>
         <source src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/ExpMeme.MP3" type="audio/mpeg">
     </audio>
+    
+    <video id="video" muted>
+        <source src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/Bomb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
     <script>
         let countdown = 1000;
         const timerElement = document.getElementById('timer');
         const audio = document.getElementById('background-audio');
+        const video = document.getElementById('video');
         let countdownInterval;
         let countdownSpeed = 1000; // Initial countdown speed (1 second)
         let audioPlaybackRate = 1.0; // Initial playback rate
@@ -234,8 +253,41 @@
                 if (countdown > 0) {
                     countdown--;
                     timerElement.textContent = countdown;
+
+                    // Check for countdown reaching 20
+                    if (countdown === 20) {
+                        goFullscreen();
+                    }
+                } else {
+                    clearInterval(countdownInterval);
+                    playVideo();
                 }
             }, countdownSpeed);
+        }
+
+        function goFullscreen() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                document.documentElement.msRequestFullscreen();
+            }
+        }
+
+        function playVideo() {
+            audio.pause(); // Pause the audio
+            video.style.display = 'block'; // Show video
+            video.currentTime = 0; // Start video from the beginning
+            video.play(); // Play the video
+            video.muted = false; // Unmute video to play audio
+
+            // Freeze video on the last frame
+            video.addEventListener('ended', () => {
+                video.pause(); // Pause video on last frame
+            });
         }
 
         // Slider Logic
@@ -280,10 +332,10 @@
 
                     if (percentage >= 0.8) {
                         handle.style.left = `${sliderWidth - handle.offsetWidth}px`;
-                        countdownSpeed = 80;
+                        countdownSpeed = 10;
                         clearInterval(countdownInterval);
                         startCountdown();
-                        audioPlaybackRate = 1.6;
+                        audioPlaybackRate = 1.8;
                         audio.preservesPitch = true;
                         audio.playbackRate = audioPlaybackRate;
 
