@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fatal Error Screen</title>
+    <title>Fatal Error</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/BatteryWarning.png" type="image/png">
     <style>
-        /* Import SamsungOne font */
         @font-face {
             font-family: 'SamsungOne';
             src: url('https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/samsungone/samsungone/SamsungOne-400.ttf') format('truetype');
@@ -28,7 +28,7 @@
             align-items: center;
             flex-direction: column;
             min-height: 100vh;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden;
         }
 
         .start-screen {
@@ -51,19 +51,19 @@
         }
 
         .container {
-            display: none; /* Initially hidden until start button is clicked */
+            display: none;
             flex-direction: column;
             width: 100%;
             max-width: 400px;
-            height: 600px; /* Increased height of the container */
+            height: 600px;
             padding: 20px;
             box-sizing: border-box;
             color: white;
-            justify-content: space-between; /* Space elements evenly */
+            justify-content: space-between;
         }
 
         .group {
-            margin-bottom: 30px; /* Space between groups */
+            margin-bottom: 30px;
         }
 
         .header {
@@ -81,27 +81,27 @@
         .header h1 {
             font-size: 24px;
             margin: 0;
-            font-weight: 700; /* Bold weight for title */
+            font-weight: 700;
         }
 
         .body-text {
             font-size: 16px;
             line-height: 1.5;
-            margin-bottom: 10px; /* Reduced margin for body text */
-            font-weight: normal; /* Normal weight for body text */
+            margin-bottom: 10px;
+            font-weight: normal;
         }
 
         .error-code {
             font-size: 16px;
             font-weight: normal;
-            margin-top: 10px; /* Spacing above error code */
+            margin-top: 10px;
         }
 
         .timer {
             font-size: 32px;
             text-align: center;
-            margin: 20px 0; /* Margin for spacing */
-            font-weight: bold; /* Bold weight for timer */
+            margin: 20px 0;
+            font-weight: bold;
         }
 
         .slider-container {
@@ -117,7 +117,7 @@
             border-radius: 30px;
             position: relative;
             cursor: pointer;
-            z-index: 1; /* Lower z-index for slider bar */
+            z-index: 1;
         }
 
         .slider-handle {
@@ -132,7 +132,7 @@
             justify-content: center;
             background-color: #9ddb12;
             transition: left 0.2s ease;
-            z-index: 3; /* Higher z-index for slider handle */
+            z-index: 3;
         }
 
         .slider-handle[data-slider="2"] {
@@ -146,37 +146,35 @@
 
         .slider-text {
             position: absolute;
-            top: 15px; /* Center vertically */
-            left: 0; /* Start from the right end of the handle */
+            top: 15px;
+            left: 0;
             color: white;
             font-size: 16px;
             transition: opacity 0.2s ease;
-            white-space: nowrap; /* Prevent text wrapping */
-            opacity: 1; /* Start fully visible */
-            padding-left: 10px; /* Additional padding for text */
-            padding-right: 10px; /* Additional padding for text */
-            z-index: 2; /* Higher z-index for text to be above the slider bar */
+            white-space: nowrap;
+            opacity: 1;
+            padding-left: 10px;
+            padding-right: 10px;
+            z-index: 2;
         }
 
-        /* Adjust positions for slider texts */
         #text1 {
-            left: 80px; /* Position text for slider 1 relative to handle */
+            left: 80px;
         }
 
         #text2 {
-            left: 80px; /* Position text for slider 2 relative to handle */
+            left: 80px;
         }
 
-        /* Video styles */
         #video {
-            display: none; /* Initially hidden */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the entire screen */
-            z-index: 10; /* Make sure it's above everything else */
+            object-fit: cover;
+            z-index: 10;
         }
     </style>
 </head>
@@ -236,14 +234,12 @@
         const audio = document.getElementById('background-audio');
         const video = document.getElementById('video');
         let countdownInterval;
-        let countdownSpeed = 1000; // Initial countdown speed (1 second)
-        let audioPlaybackRate = 1.0; // Initial playback rate
+        let countdownSpeed = 1000;
+        let audioPlaybackRate = 1.0;
 
         function startApp() {
             document.querySelector('.start-screen').style.display = 'none';
             document.querySelector('.container').style.display = 'flex';
-
-            // Play background audio
             audio.play();
             startCountdown();
         }
@@ -253,8 +249,6 @@
                 if (countdown > 0) {
                     countdown--;
                     timerElement.textContent = countdown;
-
-                    // Check for countdown reaching 20
                     if (countdown === 20) {
                         goFullscreen();
                     }
@@ -268,29 +262,26 @@
         function goFullscreen() {
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+            } else if (document.documentElement.mozRequestFullScreen) {
                 document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            } else if (document.documentElement.webkitRequestFullscreen) {
                 document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+            } else if (document.documentElement.msRequestFullscreen) {
                 document.documentElement.msRequestFullscreen();
             }
         }
 
         function playVideo() {
-            audio.pause(); // Pause the audio
-            video.style.display = 'block'; // Show video
-            video.currentTime = 0; // Start video from the beginning
-            video.play(); // Play the video
-            video.muted = false; // Unmute video to play audio
-
-            // Freeze video on the last frame
+            audio.pause();
+            video.style.display = 'block';
+            video.currentTime = 0;
+            video.play();
+            video.muted = false;
             video.addEventListener('ended', () => {
-                video.pause(); // Pause video on last frame
+                video.pause();
             });
         }
 
-        // Slider Logic
         document.querySelectorAll('.slider-bar').forEach(slider => {
             const handle = slider.querySelector('.slider-handle');
             const textElement = slider.querySelector('.slider-text');
@@ -310,14 +301,8 @@
                     let newLeft = currentX - startX;
                     newLeft = Math.max(0, Math.min(newLeft, sliderWidth - handle.offsetWidth));
                     handle.style.left = `${newLeft}px`;
-
-                    // Calculate the percentage of slider movement (0 to 1)
                     const handleLeft = parseFloat(handle.style.left);
                     const percentage = handleLeft / (sliderWidth - handle.offsetWidth);
-                    
-                    // Calculate opacity based on first 30% of movement
-                    // When percentage is 0, opacity should be 1
-                    // When percentage is 0.3 or greater, opacity should be 0
                     if (percentage <= 0.3) {
                         const opacityValue = 1 - (percentage / 0.3);
                         textElement.style.opacity = opacityValue.toFixed(2);
