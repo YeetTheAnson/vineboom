@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatal Error Screen</title>
+    <style>
+        /* Import SamsungOne font */
+        @font-face {
+            font-family: 'SamsungOne';
+            src: url('https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/samsungone/samsungone/SamsungOne-400.ttf') format('truetype');
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: 'SamsungOne';
+            src: url('https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/samsungone/samsungone/SamsungOne-700.ttf') format('truetype');
+            font-weight: bold;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'SamsungOne', sans-serif;
+            background-color: #3a3832;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .start-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #3a3832;
+        }
+
+        .start-button {
+            padding: 20px 40px;
+            font-size: 20px;
+            font-family: 'SamsungOne', sans-serif;
+            cursor: pointer;
+            background-color: #8f8579;
+            border: none;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .container {
+            display: none; /* Initially hidden until start button is clicked */
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+            height: 600px; /* Increased height of the container */
+            padding: 20px;
+            box-sizing: border-box;
+            color: white;
+            justify-content: space-between; /* Space elements evenly */
+        }
+
+        .group {
+            margin-bottom: 30px; /* Space between groups */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: 700; /* Bold weight for title */
+        }
+
+        .body-text {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 10px; /* Reduced margin for body text */
+            font-weight: normal; /* Normal weight for body text */
+        }
+
+        .error-code {
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 10px; /* Spacing above error code */
+        }
+
+        .timer {
+            font-size: 32px;
+            text-align: center;
+            margin: 20px 0; /* Margin for spacing */
+            font-weight: bold; /* Bold weight for timer */
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .slider-bar {
+            background-color: #8f8579;
+            height: 50px;
+            border-radius: 30px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1; /* Lower z-index for slider bar */
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 50px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #9ddb12;
+            transition: left 0.2s ease;
+            z-index: 3; /* Higher z-index for slider handle */
+        }
+
+        .slider-handle[data-slider="2"] {
+            background-color: #fc5c56;
+        }
+
+        .slider-handle img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .slider-text {
+            position: absolute;
+            top: 15px; /* Center vertically */
+            left: 0; /* Start from the right end of the handle */
+            color: white;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            white-space: nowrap; /* Prevent text wrapping */
+            opacity: 1; /* Start fully visible */
+            padding-left: 10px; /* Additional padding for text */
+            padding-right: 10px; /* Additional padding for text */
+            z-index: 2; /* Higher z-index for text to be above the slider bar */
+        }
+
+        /* Adjust positions for slider texts */
+        #text1 {
+            left: 80px; /* Position text for slider 1 relative to handle */
+        }
+
+        #text2 {
+            left: 80px; /* Position text for slider 2 relative to handle */
+        }
+    </style>
+</head>
+<body>
+    <div class="start-screen">
+        <button class="start-button" onclick="startApp()">Start</button>
+    </div>
+
+    <div class="container">
+        <div class="group">
+            <div class="header">
+                <img src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/BatteryWarning.png" alt="Error Icon">
+                <h1>Fatal Error</h1>
+            </div>
+            <div class="body-text">
+                Your device has encountered a fatal error and<br>
+                must shut down. For further details, please<br>
+                contact Samsung Service Centre.
+            </div>
+            <div class="error-code">
+                ERROR CODE - FXXAT6790
+            </div>
+        </div>
+        <div class="group">
+            <div class="timer" id="timer">1000</div>
+        </div>
+        <div class="group">
+            <div class="slider-container">
+                <div class="slider-bar" id="slider1">
+                    <div class="slider-handle" data-slider="1">
+                        <img src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/Tick.png" alt="Tick Icon">
+                    </div>
+                    <div class="slider-text" id="text1">Risk an explosion</div>
+                </div>
+                <div class="slider-bar" id="slider2">
+                    <div class="slider-handle" data-slider="2">
+                        <img src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/main/Call.png" alt="Call Icon">
+                    </div>
+                    <div class="slider-text" id="text2">Samsung Service Centre</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="background-audio" loop>
+        <source src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/ExpMeme.MP3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let countdown = 1000;
+        const timerElement = document.getElementById('timer');
+        const audio = document.getElementById('background-audio');
+        let countdownInterval;
+        let countdownSpeed = 1000; // Initial countdown speed (1 second)
+        let audioPlaybackRate = 1.0; // Initial playback rate
+
+        function startApp() {
+            document.querySelector('.start-screen').style.display = 'none';
+            document.querySelector('.container').style.display = 'flex';
+
+            // Play background audio
+            audio.play();
+            startCountdown();
+        }
+
+        function startCountdown() {
+            countdownInterval = setInterval(() => {
+                if (countdown > 0) {
+                    countdown--;
+                    timerElement.textContent = countdown;
+                }
+            }, countdownSpeed);
+        }
+
+        // Slider Logic
+        document.querySelectorAll('.slider-bar').forEach(slider => {
+            const handle = slider.querySelector('.slider-handle');
+            const textElement = slider.querySelector('.slider-text');
+
+            handle.addEventListener('mousedown', startDrag);
+            handle.addEventListener('touchstart', startDrag);
+
+            function startDrag(event) {
+                event.preventDefault();
+                const isTouch = event.type === 'touchstart';
+                const startX = isTouch ? event.touches[0].clientX : event.clientX;
+                const rect = slider.getBoundingClientRect();
+                const sliderWidth = rect.width;
+
+                const move = (moveEvent) => {
+                    const currentX = isTouch ? moveEvent.touches[0].clientX : moveEvent.clientX;
+                    let newLeft = currentX - startX;
+                    newLeft = Math.max(0, Math.min(newLeft, sliderWidth - handle.offsetWidth));
+                    handle.style.left = `${newLeft}px`;
+
+                    // Calculate the percentage of slider movement (0 to 1)
+                    const handleLeft = parseFloat(handle.style.left);
+                    const percentage = handleLeft / (sliderWidth - handle.offsetWidth);
+                    
+                    // Calculate opacity based on first 30% of movement
+                    // When percentage is 0, opacity should be 1
+                    // When percentage is 0.3 or greater, opacity should be 0
+                    if (percentage <= 0.3) {
+                        const opacityValue = 1 - (percentage / 0.3);
+                        textElement.style.opacity = opacityValue.toFixed(2);
+                    } else {
+                        textElement.style.opacity = 0;
+                    }
+                };
+
+                const stopDrag = () => {
+                    const handleLeft = parseFloat(handle.style.left);
+                    const percentage = handleLeft / (sliderWidth - handle.offsetWidth);
+
+                    if (percentage >= 0.8) {
+                        handle.style.left = `${sliderWidth - handle.offsetWidth}px`;
+                        countdownSpeed = 80;
+                        clearInterval(countdownInterval);
+                        startCountdown();
+                        audioPlaybackRate = 1.6;
+                        audio.preservesPitch = true;
+                        audio.playbackRate = audioPlaybackRate;
+
+                        setTimeout(() => {
+                            handle.style.left = '0px';
+                            textElement.style.opacity = 1;
+                        }, 200);
+                    } else {
+                        handle.style.left = '0px';
+                        textElement.style.opacity = 1;
+                    }
+
+                    document.removeEventListener(isTouch ? 'touchmove' : 'mousemove', move);
+                    document.removeEventListener(isTouch ? 'touchend' : 'mouseup', stopDrag);
+                };
+
+                document.addEventListener(isTouch ? 'touchmove' : 'mousemove', move);
+                document.addEventListener(isTouch ? 'touchend' : 'mouseup', stopDrag);
+            }
+        });
+    </script>
+</body>
+</html>
