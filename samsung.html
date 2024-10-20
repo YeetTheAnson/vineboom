@@ -223,24 +223,36 @@
         <source src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/ExpMeme.MP3" type="audio/mpeg">
     </audio>
     
-    <video id="video" muted>
+    <audio id="webkit-audio">
+        <source src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/Bomb.mp3" type="audio/mpeg">
+    </audio>
+    
+    <video id="video">
         <source src="https://raw.githubusercontent.com/YeetTheAnson/vineboom/refs/heads/main/Bomb.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
     <script>
+        // Declare variables globally
         let countdown = 1000;
-        const timerElement = document.getElementById('timer');
-        const audio = document.getElementById('background-audio');
-        const video = document.getElementById('video');
         let countdownInterval;
         let countdownSpeed = 1000;
         let audioPlaybackRate = 1.0;
+        const timerElement = document.getElementById('timer');
+        const audio = document.getElementById('background-audio');
+        const video = document.getElementById('video');
+        const webkitAudio = document.getElementById('webkit-audio');
 
         function startApp() {
+            // Ensure audio is ready before playing
+            audio.load();
+            webkitAudio.load();
+
             document.querySelector('.start-screen').style.display = 'none';
             document.querySelector('.container').style.display = 'flex';
-            audio.play();
+            audio.play().catch(error => {
+                console.error("Audio playback was prevented. Ensure interaction is made first.", error);
+            });
             startCountdown();
         }
 
@@ -275,10 +287,28 @@
             audio.pause();
             video.style.display = 'block';
             video.currentTime = 0;
-            video.play();
-            video.muted = false;
+
+            // Detect if the browser is WebKit-based (e.g., Safari) or Chromium-based (e.g., Chrome)
+            const isWebKit = /AppleWebKit/i.test(navigator.userAgent) && !/Chrome/i.test(navigator.userAgent);
+
+            if (isWebKit) {
+                video.muted = true; // Mute the video for WebKit
+                webkitAudio.play().catch(error => {
+                    console.error("Audio playback prevented. Ensure interaction first.", error);
+                });
+            } else {
+                video.muted = false;
+            }
+
+            video.play().catch(error => {
+                console.error("Video playback prevented. Ensure interaction first.", error);
+            });
+
             video.addEventListener('ended', () => {
                 video.pause();
+                if (isWebKit) {
+                    webkitAudio.pause();
+                }
             });
         }
 
